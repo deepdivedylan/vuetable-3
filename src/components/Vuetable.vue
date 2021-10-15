@@ -63,7 +63,7 @@
                 <template v-if="field.visible">
                   <template v-if="isFieldComponent(field.name)">
                     <component
-                      :is="field.name.substr(25)"
+                      :is="field.name"
                       :key="fieldIndex"
                       :row-data="item"
                       :row-index="itemIndex"
