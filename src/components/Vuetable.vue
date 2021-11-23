@@ -599,14 +599,20 @@ export default {
       );
     },
 
-    setData(data) {
+    setData(data, preventEventFire) {
       if (data === null || typeof data === "undefined") return;
 
-      this.fireEvent("loading");
+      if (!preventEventFire) {
+        this.fireEvent("loading");
+      }
 
       if (Array.isArray(data)) {
         this.tableData = data;
-        this.fireEvent("loaded");
+
+        if (!preventEventFire) {
+          this.fireEvent("loaded");
+        }
+
         return;
       }
 
@@ -621,7 +627,10 @@ export default {
         this.checkIfRowIdentifierExists();
         this.updateHeader();
         this.fireEvent("pagination-data", this.tablePagination);
-        this.fireEvent("loaded");
+
+        if (!preventEventFire) {
+          this.fireEvent("loaded");
+        }
       });
     },
 
