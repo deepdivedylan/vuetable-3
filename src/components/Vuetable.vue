@@ -697,7 +697,8 @@ export default {
     loadData(
       success = this.loadSuccess,
       failed = this.loadFailed,
-      initialParams = {}
+      initialParams = {},
+      disableLoading = false
     ) {
       const successCb = success || this.loadSuccess;
       const failedCb = failed || this.loadFailed;
@@ -707,7 +708,9 @@ export default {
         return;
       }
 
-      this.fireEvent("loading");
+      if (!disableLoading) {
+        this.fireEvent("loading");
+      }
 
       const queryParams = this.getAllQueryParams();
       const allParams = {
