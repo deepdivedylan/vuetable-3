@@ -147,8 +147,8 @@
 /* eslint-disable prefer-spread */
 /* eslint-disable prefer-rest-params */
 import axios from "axios";
-import VuetableRowHeader from "./VuetableRowHeader";
-import VuetableColGroup from "./VuetableColGroup";
+import VuetableRowHeader from "./VuetableRowHeader.vue";
+import VuetableColGroup from "./VuetableColGroup.vue";
 import CssSemanticUI from "./VuetableCssSemanticUI.js";
 
 export default {
