@@ -5,9 +5,10 @@
         <vuetable-col-group :is-header="true" />
         <thead>
           <slot name="tableHeader" :fields="tableFields">
-            <template v-for="(header, headerIndex) in headerRows" :key="headerIndex">
+            <template v-for="(header, headerIndex) in headerRows">
               <component
                 :is="header"
+                :key="headerIndex"
                 @vuetable:header-event="onHeaderEvent"
               ></component>
             </template>
@@ -32,9 +33,10 @@
         <vuetable-col-group />
         <thead v-if="!isFixedHeader">
           <slot name="tableHeader" :fields="tableFields">
-            <template v-for="(header, headerIndex) in headerRows" :key="headerIndex">
+            <template v-for="(header, headerIndex) in headerRows">
               <component
                 :is="header"
+                :key="headerIndex"
                 @vuetable:header-event="onHeaderEvent"
               ></component>
             </template>
@@ -48,19 +50,21 @@
           ></slot>
         </tfoot>
         <tbody v-cloak class="vuetable-body">
-          <template v-for="(item, itemIndex) in tableData" :key="itemIndex">
+          <template v-for="(item, itemIndex) in tableData">
             <tr
               :item-index="itemIndex"
+              :key="itemIndex"
               :class="onRowClass(item, itemIndex)"
               @click="onRowClicked(item, itemIndex, $event)"
               @dblclick="onRowDoubleClicked(item, itemIndex, $event)"
               @mouseover="onMouseOver(item, itemIndex, $event)"
             >
-              <template v-for="(field, fieldIndex) in tableFields" :key="fieldIndex">
+              <template v-for="(field, fieldIndex) in tableFields">
                 <template v-if="field.visible">
                   <template v-if="isFieldComponent(field.name)">
                     <component
                       :is="field.name"
+                      :key="fieldIndex"
                       :row-data="item"
                       :row-index="itemIndex"
                       :row-field="field"
@@ -73,6 +77,7 @@
                   <template v-else-if="isFieldSlot(field.name)">
                     <td
                       :class="bodyClass('vuetable-slot', field)"
+                      :key="fieldIndex"
                       :style="{ width: field.width }"
                     >
                       <slot
@@ -86,6 +91,7 @@
                   <template v-else>
                     <td
                       :class="bodyClass('vuetable-td-' + field.name, field)"
+                      :key="fieldIndex"
                       :style="{ width: field.width }"
                       v-html="renderNormalField(field, item)"
                       @click="onCellClicked(item, itemIndex, field, $event)"
@@ -130,8 +136,8 @@
           </template>
           <template v-if="lessThanMinRows">
             <tr v-for="i in blankRows" class="blank-row" :key="i">
-              <template v-for="(field, fieldIndex) in tableFields" :key="fieldIndex">
-                <td v-if="field.visible">&nbsp;</td>
+              <template v-for="(field, fieldIndex) in tableFields">
+                <td v-if="field.visible" :key="fieldIndex">&nbsp;</td>
               </template>
             </tr>
           </template>
